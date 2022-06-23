@@ -5,23 +5,55 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/first"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="20dp"
-        android:text="Quron Tarjimasi"
-        android:background="@color/second"
-        android:textColor="@color/white"
-        android:textSize="25sp"
-        android:textStyle="bold"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bgg"
+            android:backgroundTintMode="@color/transparent"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="12dp"
+                android:paddingStart="16dp"
+                android:text="@string/text_app_name"
+                android:textColor="@color/white"
+                android:textSize="25sp"
+                android:fontFamily="@font/lato_bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="RtlSymmetry" />
+
+
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/search"
+                android:theme="@style/cursorColor"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:background="@null"
+                app:queryBackground="@drawable/search_bg"
+                android:backgroundTintMode="multiply"
+                app:closeIcon="@drawable/ic_baseline_close_24"
+                app:defaultQueryHint="Qidirish..."
+                app:searchHintIcon="@null"
+                app:searchIcon="@drawable/ic_baseline_search_24"
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/item_rv"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+        android:layoutAnimation="@anim/anim"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
 </LinearLayout>

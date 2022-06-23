@@ -8,7 +8,8 @@
     android:focusable="true"
     android:foreground="?attr/selectableItemBackground"
     android:orientation="horizontal"
-    android:padding="5dp">
+    android:padding="5dp"
+    tools:ignore="UnusedAttribute">
 
     <TextView
         android:id="@+id/pos"
@@ -20,7 +21,7 @@
         android:padding="5dp"
         android:textColor="@color/white"
         android:textSize="22sp"
-        android:textStyle="bold"
+        android:fontFamily="@font/lato_bold"
         tools:text="1" />
 
     <LinearLayout
@@ -39,7 +40,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:textSize="20sp"
-            android:textStyle="bold"
+            android:fontFamily="@font/lato_semibold"
             tools:text="@string/app_name" />
 
         <TextView
@@ -48,7 +49,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:textSize="14sp"
-            android:textStyle="bold"
+            android:fontFamily="@font/lato_regular"
             tools:text="Makkada nozil bo'lgan | 200 oyatdan iborat" />
 
     </LinearLayout>

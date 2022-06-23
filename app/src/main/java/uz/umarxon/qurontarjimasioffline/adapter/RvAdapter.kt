@@ -2,13 +2,17 @@ package uz.umarxon.qurontarjimasioffline.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.ScaleAnimation
 import androidx.recyclerview.widget.RecyclerView
 import uz.umarxon.qurontarjimasioffline.databinding.ItemRvBinding
 import uz.umarxon.qurontarjimasioffline.models.quranInfo.Chapter
-import uz.umarxon.qurontarjimasioffline.models.quranInfo.QuranInfo
+import java.util.*
 
-class RvAdapter(private val list: List<Chapter>, val rvClick: rv_click) :
+
+class RvAdapter(private var list: List<Chapter>, val rvClick: rv_click) :
     RecyclerView.Adapter<RvAdapter.Vh>() {
     inner class Vh(var itemRv: ItemRvBinding) : RecyclerView.ViewHolder(itemRv.root) {
         @SuppressLint("SetTextI18n")
@@ -33,6 +37,7 @@ class RvAdapter(private val list: List<Chapter>, val rvClick: rv_click) :
     }
 
 
+
     interface rv_click {
         fun click(chapter: Chapter, position: Int)
     }
@@ -43,7 +48,23 @@ class RvAdapter(private val list: List<Chapter>, val rvClick: rv_click) :
 
     override fun onBindViewHolder(holder: Vh, position: Int) {
         holder.onBind(list[position], position)
+        setAnimation(viewToAnimate = holder.itemView, position=position)
     }
 
     override fun getItemCount(): Int = list.size
 }
+
+private fun setAnimation(viewToAnimate: View, position: Int) {
+        val anim = ScaleAnimation(0.0f,
+            1.0f,
+            0.0f,
+            1.0f,
+            Animation.RELATIVE_TO_SELF,
+            0.5f,
+            Animation.RELATIVE_TO_SELF,
+            0.5f)
+        anim.duration = 200
+        viewToAnimate.startAnimation(anim)
+
+}
+

@@ -1,5 +1,8 @@
 package uz.umarxon.qurontarjimasioffline
 
+import android.annotation.SuppressLint
+import android.content.ClipData
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -7,6 +10,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.animation.AnimationUtils
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -32,7 +36,6 @@ class SecondActivity : AppCompatActivity() {
         val gson = Gson()
 
         val lisType = object : TypeToken<Quran>() {}.type
-        val lisType2 = object : TypeToken<Quran>() {}.type
 
         val quranTranslatedText: Quran = gson.fromJson(jsonFileString, lisType)
         val quranText2: Quran = gson.fromJson(jsonFileString2, lisType)
@@ -66,24 +69,34 @@ class SecondActivity : AppCompatActivity() {
 
         findViewById<RecyclerView>(R.id.rv2).adapter = RvAdapter2(list2, list3, object :
             RvAdapter2.rv_click {
+            @SuppressLint("SetTextI18n")
             override fun click(chapter: QuranX, position: Int) {
                 val d = BottomSheetDialog(this@SecondActivity)
 
                 val i = BottomSheetBinding.inflate(layoutInflater)
-
                 i.name.text = chapter.text
                 i.detail.text = "${chapter.verse} - Оят , ${chapterList.verses[position].juz} - Жуз"
 
+                i.rootBottomSheet.setOnClickListener {
+                    copyText("${chapter.text.trim()} \n(${chapterList.name}, ${chapter.verse}-Оят)")
+                }
+
                 d.setContentView(i.root)
-
                 d.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-
                 d.setCancelable(true)
-
                 d.show()
             }
         })
 
+    }
+
+    @SuppressLint("ServiceCast")
+    private fun copyText(copyText: String) {
+        val clipboard =
+            getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
+        val clip = ClipData.newPlainText("Copied Text", copyText)
+        clipboard.setPrimaryClip(clip)
+        Toast.makeText(this, "Нусха кўчирилди", Toast.LENGTH_SHORT).show()
     }
 
 }

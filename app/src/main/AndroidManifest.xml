@@ -11,7 +11,8 @@
         android:theme="@style/Theme.QuronTarjimasiOffline">
         <activity
             android:name=".SecondActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.Second"/>
         <activity
             android:name=".MainActivity"
             android:exported="true">
