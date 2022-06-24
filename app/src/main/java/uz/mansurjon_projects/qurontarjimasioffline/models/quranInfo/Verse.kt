@@ -1,4 +1,4 @@
-package uz.umarxon.qurontarjimasioffline.models.quranInfo
+package uz.mansurjon_projects.qurontarjimasioffline.models.quranInfo
 
 import java.io.Serializable
 

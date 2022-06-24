@@ -1,4 +1,4 @@
-package uz.umarxon.qurontarjimasioffline.adapter
+package uz.mansurjon_projects.qurontarjimasioffline.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -7,10 +7,8 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.ScaleAnimation
 import androidx.recyclerview.widget.RecyclerView
-import uz.umarxon.qurontarjimasioffline.databinding.ItemRvBinding
-import uz.umarxon.qurontarjimasioffline.models.quranInfo.Chapter
-import java.util.*
-
+import uz.mansurjon_projects.qurontarjimasioffline.databinding.ItemRvBinding
+import uz.mansurjon_projects.qurontarjimasioffline.models.quranInfo.Chapter
 
 class RvAdapter(private var list: List<Chapter>, val rvClick: rv_click) :
     RecyclerView.Adapter<RvAdapter.Vh>() {

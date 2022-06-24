@@ -1,4 +1,4 @@
-package uz.umarxon.qurontarjimasioffline
+package uz.mansurjon_projects.qurontarjimasioffline
 
 import android.annotation.SuppressLint
 import android.content.ClipData
@@ -7,8 +7,6 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.animation.AnimationUtils
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -16,11 +14,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import uz.umarxon.qurontarjimasioffline.adapter.RvAdapter2
-import uz.umarxon.qurontarjimasioffline.databinding.BottomSheetBinding
-import uz.umarxon.qurontarjimasioffline.models.quran.Quran
-import uz.umarxon.qurontarjimasioffline.models.quran.QuranX
-import uz.umarxon.qurontarjimasioffline.models.quranInfo.Chapter
+import uz.mansurjon_projects.qurontarjimasioffline.adapter.RvAdapter2
+import uz.mansurjon_projects.qurontarjimasioffline.databinding.BottomSheetBinding
+import uz.mansurjon_projects.qurontarjimasioffline.models.quran.Quran
+import uz.mansurjon_projects.qurontarjimasioffline.models.quran.QuranX
+import uz.mansurjon_projects.qurontarjimasioffline.models.quranInfo.Chapter
 
 class SecondActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,26 +65,49 @@ class SecondActivity : AppCompatActivity() {
 
         findViewById<TextView>(R.id.name).text = chapterList.name
 
-        findViewById<RecyclerView>(R.id.rv2).adapter = RvAdapter2(list2, list3, object :
-            RvAdapter2.rv_click {
-            @SuppressLint("SetTextI18n")
-            override fun click(chapter: QuranX, position: Int) {
-                val d = BottomSheetDialog(this@SecondActivity)
+        findViewById<RecyclerView>(R.id.rv2).adapter =
+            RvAdapter2(list2, list3, object : RvAdapter2.rvClickArabic {
+                @SuppressLint("SetTextI18n")
+                override fun clickArabic(chapter: QuranX, position: Int) {
+                    val d = BottomSheetDialog(this@SecondActivity)
 
-                val i = BottomSheetBinding.inflate(layoutInflater)
-                i.name.text = chapter.text
-                i.detail.text = "${chapter.verse} - Оят , ${chapterList.verses[position].juz} - Жуз"
+                    val i = BottomSheetBinding.inflate(layoutInflater)
+                    i.textAyah.text = list3[position].text
+                    i.detail.text =
+                        "${chapter.verse} - آية, ${chapterList.verses[position].juz} - جُزْءْ"
 
-                i.rootBottomSheet.setOnClickListener {
-                    copyText("${chapter.text.trim()} \n(${chapterList.name}, ${chapter.verse}-Оят)")
+                    i.rootBottomSheet.setOnClickListener {
+                        copyText("${list3[position].text.trim()} \n(${chapterList.arabicname}, ${chapter.verse}-آية)")
+                    }
+
+                    d.setContentView(i.root)
+                    d.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                    d.setCancelable(true)
+                    d.show()
+
                 }
 
-                d.setContentView(i.root)
-                d.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-                d.setCancelable(true)
-                d.show()
-            }
-        })
+            }, object : RvAdapter2.rvClickUzbek {
+                @SuppressLint("SetTextI18n")
+                override fun clickUzbek(chapter: QuranX, position: Int) {
+                    val d = BottomSheetDialog(this@SecondActivity)
+
+                    val i = BottomSheetBinding.inflate(layoutInflater)
+                    i.textAyah.text = chapter.text
+                    i.detail.text =
+                        "${chapter.verse} - Оят , ${chapterList.verses[position].juz} - Жуз"
+
+                    i.rootBottomSheet.setOnClickListener {
+                        copyText("${chapter.text.trim()} \n(${chapterList.name}, ${chapter.verse}-Оят)")
+                    }
+
+                    d.setContentView(i.root)
+                    d.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                    d.setCancelable(true)
+                    d.show()
+                }
+
+            })
 
     }
 

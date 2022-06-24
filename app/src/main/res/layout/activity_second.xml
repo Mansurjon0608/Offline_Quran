@@ -5,14 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/first"
+    android:background="@color/second"
     tools:context=".MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:elevation="15dp"
-        android:background="@color/second">
+        android:background="@drawable/bgg"
+       >
 
         <TextView
             android:id="@+id/name"

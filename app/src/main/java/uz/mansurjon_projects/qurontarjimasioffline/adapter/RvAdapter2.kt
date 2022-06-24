@@ -1,4 +1,4 @@
-package uz.umarxon.qurontarjimasioffline.adapter
+package uz.mansurjon_projects.qurontarjimasioffline.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -7,19 +7,31 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.ScaleAnimation
 import androidx.recyclerview.widget.RecyclerView
-import uz.umarxon.qurontarjimasioffline.databinding.ItemRv2Binding
-import uz.umarxon.qurontarjimasioffline.models.quran.QuranX
+import uz.mansurjon_projects.qurontarjimasioffline.databinding.ItemRv2Binding
+import uz.mansurjon_projects.qurontarjimasioffline.models.quran.QuranX
 
-class RvAdapter2(private val list: List<QuranX>, private val list2:List<QuranX>, val rvClick: rv_click) :
+class RvAdapter2(
+    private val list: List<QuranX>,
+    private val list2: List<QuranX>,
+    val rvArabic: rvClickArabic,
+    val rvUzbek: rvClickUzbek,
+) :
     RecyclerView.Adapter<RvAdapter2.Vh>() {
+
+
     inner class Vh(var itemRv: ItemRv2Binding) : RecyclerView.ViewHolder(itemRv.root) {
+
         @SuppressLint("SetTextI18n")
         fun onBind(chapter: QuranX, position: Int) {
-            itemRv.text.text = "${position+1}. ${chapter.text}"
-            itemRv.textOriginal.text = "${convertToArabic(position+1)}.  ${list2[position].text}"
+            itemRv.text.text = "${position + 1}. ${chapter.text}"
+            itemRv.textOriginal.text = "${convertToArabic(position + 1)}.  ${list2[position].text}"
 
-            itemRv.root.setOnClickListener {
-                rvClick.click(chapter, position)
+            itemRv.textOriginal.setOnClickListener {
+                rvArabic.clickArabic(chapter = chapter, position = position)
+            }
+
+            itemRv.text.setOnClickListener {
+                rvUzbek.clickUzbek(chapter = chapter, position = position)
             }
         }
     }
@@ -33,9 +45,14 @@ class RvAdapter2(private val list: List<QuranX>, private val list2:List<QuranX>,
             .replace("9".toRegex(), "٩").replace("0".toRegex(), "٠")
     }
 
-    interface rv_click {
-        fun click(chapter: QuranX, position: Int)
+    interface rvClickUzbek {
+        fun clickUzbek(chapter: QuranX, position: Int)
     }
+
+    interface rvClickArabic {
+        fun clickArabic(chapter: QuranX, position: Int)
+    }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Vh {
         return Vh(ItemRv2Binding.inflate(LayoutInflater.from(parent.context), parent, false))
@@ -48,7 +65,6 @@ class RvAdapter2(private val list: List<QuranX>, private val list2:List<QuranX>,
 
     override fun getItemCount(): Int = list.size
 }
-
 
 private fun setAnimation(viewToAnimate: View, position: Int) {
     val anim = ScaleAnimation(0.0f,

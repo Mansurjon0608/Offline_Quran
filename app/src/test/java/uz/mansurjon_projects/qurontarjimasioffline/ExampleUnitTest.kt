@@ -1,4 +1,4 @@
-package uz.umarxon.qurontarjimasioffline
+package uz.mansurjon_projects.qurontarjimasioffline
 
 import org.junit.Test
 
